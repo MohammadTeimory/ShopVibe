@@ -1,3 +1,5 @@
+import { formattCurrency } from "../scripts/utils/money.js";
+
 /*const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -475,20 +477,30 @@
 class Products {
   id;
   image;
+  name;
   rating;
   priceCents;
 
   constructor(productsDetails) {
     this.id = productsDetails.id;
+    this.name = productsDetails.name;
     this.image = productsDetails.image;
     this.rating = productsDetails.rating;
     this.priceCents = productsDetails.priceCents;
+  }
+
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  getPrice() {
+    return formattCurrency(this.priceCents);
   }
 }
 
 export let products = [];
 
-async function loadProductsFech() {
+export async function loadProductsFech() {
   const res = await fetch("https://supersimplebackend.dev/products");
   const productsData = await res.json();
   products = productsData.map((productData) => {
@@ -496,5 +508,3 @@ async function loadProductsFech() {
   });
   return products;
 }
-
-
