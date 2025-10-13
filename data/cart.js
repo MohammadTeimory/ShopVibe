@@ -35,6 +35,10 @@ class Cart {
       message.classList.remove("show-message");
     }, 1500);
   }
+
+  getTotalQuantity() {
+    return this.cart.reduce((acc, cartItem) => (acc += cartItem.quantity), 0);
+  }
 }
 
 export const cart = new Cart();

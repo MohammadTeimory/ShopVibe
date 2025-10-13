@@ -1,9 +1,11 @@
 import { loadProductsFech } from "../data/products.js";
 import { cart } from "../data/cart.js";
+import { updateCartQunUi } from "./utils/cartQuanUi.js";
 
 loadProductsFech().then((products) => {
   renderAmazonPage(products);
   amazonEvents();
+  updateCartQunUi()
 });
 
 function renderAmazonPage(products) {
@@ -83,7 +85,7 @@ function amazonEvents() {
 
       cart.addToCart(productId, quantity);
       cart.showAddedMessage(message);
-      
+      updateCartQunUi()
     });
   });
 }
