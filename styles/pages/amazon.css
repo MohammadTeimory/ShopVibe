@@ -7,13 +7,11 @@
   grid-template-columns: repeat(8, 1fr);
 }
 
-
 @media (max-width: 2000px) {
   .products-grid {
     grid-template-columns: repeat(7, 1fr);
   }
 }
-
 
 @media (max-width: 1600px) {
   .products-grid {
@@ -132,4 +130,8 @@
   width: 100%;
   padding: 8px;
   border-radius: 50px;
+}
+
+.show-message {
+  opacity: initial;
 }
