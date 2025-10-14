@@ -14,17 +14,19 @@ export function renderOrderSummary() {
             <div class="product-image-container">
               <img
                 class="product-image"
-                src="images/products/athletic-cotton-socks-6-pairs.jpg"
+                src="${matchingItem.image}"
               />
             </div>
 
             <div class="cart-item-details">
               <div class="product-name">
-                Black and Gray Athletic Cotton Socks - 6 Pairs
+                ${matchingItem.name}
               </div>
-              <div class="product-price">$10.90</div>
+              <div class="product-price">$${matchingItem.getPrice()}</div>
               <div class="product-quantity">
-                <span> Quantity: <span class="quantity-label">2</span> </span>
+                <span> Quantity: <span class="quantity-label">${
+                  cartItem.quantity
+                }</span> </span>
                 <span class="update-quantity-link link-primary">
                   Update
                 </span>
