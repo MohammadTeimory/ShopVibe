@@ -11,7 +11,7 @@ export function updateCartQunUi() {
   const checkoutCartQuanElem = document.querySelector(
     ".js-checkout-cart-quantity"
   );
-  if (homeCartQuanElem) {
+  if (checkoutCartQuanElem) {
     checkoutCartQuanElem.innerHTML = `${totalQuan} items`;
   }
 }
