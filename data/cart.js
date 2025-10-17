@@ -79,6 +79,16 @@ class Cart {
 
     this.saveToLocal();
   }
+
+  updateDeliveryOption(productId, deliveryId) {
+    const matchingItem = findMatchingItem(this.cart, productId, "productId");
+
+    if (matchingItem) {
+      matchingItem.deliveryId = deliveryId;
+    }
+    this.saveToLocal();
+
+  }
 }
 
 export const cart = new Cart();

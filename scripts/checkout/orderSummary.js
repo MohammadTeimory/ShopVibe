@@ -11,10 +11,21 @@ export function renderOrderSummary() {
   cartItemsContainer.innerHTML = cart.cart
     .map((cartItem) => {
       const matchingItem = findMatchingItem(products, cartItem.productId, "id");
+
+      const matchingDeliveryOption = findMatchingItem(
+        deliveryOptions,
+        cartItem.deliveryId,
+        "deliveryId"
+      );
+      const today = dayjs();
+      const deliveryDate = today
+        .add(matchingDeliveryOption.deliveryDays, "day")
+        .format("dddd , MMMM D");
+
       return `
       <article class="cart-item-container js-cart-item-container"
       data-product-id="${cartItem.productId}">
-          <div class="delivery-date">Delivery date: Tuesday, June 21</div>
+          <div class="delivery-date">Delivery date: ${deliveryDate}</div>
 
           <div class="cart-item-details-grid">
             <div class="product-image-container">
@@ -84,15 +95,17 @@ function renderDeliveryOptions(cartItem) {
           ? "FREE "
           : `$${formattCurrency(option.priceCents)}`;
 
-      const isChecked = option.optionId === cartItem.deliveryId;
+      const isChecked = option.deliveryId === cartItem.deliveryId;
 
       return `
      <div class="delivery-option">
         <input
         ${isChecked ? "checked" : ""}
           type="radio"
-          class="delivery-option-input"
+          class="delivery-option-input js-delivery-option-input"
           name="delivery-option-${cartItem.productId}"
+          data-product-id="${cartItem.productId}"
+          data-delivery-id="${option.deliveryId}"
         />
         <div>
           <div class="delivery-option-date">${deliveryDate}</div>
@@ -134,6 +147,14 @@ export function orderSummaryEvents() {
       cart.removeFromCart(productId);
       renderOrderSummary();
       updateCartQunUi();
+    }
+
+    if (e.target.classList.contains("js-delivery-option-input")) {
+      const productId = e.target.dataset.productId;
+      const deliveryId = e.target.dataset.deliveryId;
+
+      cart.updateDeliveryOption(productId, deliveryId);
+      renderOrderSummary();
     }
   });
 }
