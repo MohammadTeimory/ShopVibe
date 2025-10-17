@@ -179,3 +179,28 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+.update-quantity-input {
+  width: 30px;
+  display: none;
+}
+
+.save-quantity-link {
+  display: none;
+}
+
+.change-class .save-quantity-link {
+  display: initial;
+}
+
+.change-class .update-quantity-input {
+  display: initial;
+}
+
+.change-class .update-quantity-link {
+  display: none;
+}
+
+.change-class .quantity-label {
+  display: none;
+}

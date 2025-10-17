@@ -3,7 +3,7 @@ import { findMatchingItem } from "../scripts/utils/findMatchingItem.js";
 class Cart {
   cart;
   constructor() {
-    this.cart = [
+    this.cart = this.getFromLocal() || [
       {
         productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
         quantity: 2,
@@ -17,6 +17,14 @@ class Cart {
     ];
   }
 
+  saveToLocal() {
+    localStorage.setItem("cart", JSON.stringify(this.cart));
+  }
+
+  getFromLocal() {
+    return JSON.parse(localStorage.getItem("cart"));
+  }
+
   addToCart(productId, quantity) {
     const matchingItem = findMatchingItem(this.cart, productId, "productId");
 
@@ -27,6 +35,7 @@ class Cart {
           quantity: quantity,
           deliveryId: "1",
         });
+    this.saveToLocal();
   }
 
   showAddedMessage(message) {
@@ -38,6 +47,37 @@ class Cart {
 
   getTotalQuantity() {
     return this.cart.reduce((acc, cartItem) => (acc += cartItem.quantity), 0);
+  }
+
+  updateBtnHandler(productId) {
+    document
+      .querySelector(`.js-cart-item-container[data-product-id="${productId}"]`)
+      .classList.add("change-class");
+  }
+
+  saveBtnHandler(productId, newQuan) {
+    document
+      .querySelector(`.js-cart-item-container[data-product-id="${productId}"]`)
+      .classList.remove("change-class");
+
+    const matchingItem = findMatchingItem(this.cart, productId, "productId");
+
+    if (matchingItem) {
+      matchingItem.quantity = newQuan;
+    }
+    this.saveToLocal();
+  }
+
+  removeFromCart(productId) {
+    const index = this.cart.findIndex(
+      (cartItem) => cartItem.productId === productId
+    );
+
+    if (index !== -1) {
+      this.cart.splice(index, 1);
+    }
+
+    this.saveToLocal();
   }
 }
 

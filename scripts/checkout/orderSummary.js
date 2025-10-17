@@ -4,13 +4,16 @@ import { findMatchingItem } from "../utils/findMatchingItem.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import { formattCurrency } from "../utils/money.js";
+import { updateCartQunUi } from "../utils/cartQuanUi.js";
 
+const cartItemsContainer = document.querySelector(".js-order-summary");
 export function renderOrderSummary() {
-  document.querySelector(".js-order-summary").innerHTML = cart.cart
+  cartItemsContainer.innerHTML = cart.cart
     .map((cartItem) => {
       const matchingItem = findMatchingItem(products, cartItem.productId, "id");
       return `
-      <article class="cart-item-container">
+      <article class="cart-item-container js-cart-item-container"
+      data-product-id="${cartItem.productId}">
           <div class="delivery-date">Delivery date: Tuesday, June 21</div>
 
           <div class="cart-item-details-grid">
@@ -30,12 +33,27 @@ export function renderOrderSummary() {
                 <span> Quantity: <span class="quantity-label">${
                   cartItem.quantity
                 }</span> </span>
-                <span class="update-quantity-link link-primary">
+
+                <span class="update-quantity-link link-primary js-update-btn"
+                data-product-id="${cartItem.productId}">
                   Update
                 </span>
-                <span class="delete-quantity-link link-primary">
+
+                <span>
+                  <input class="update-quantity-input js-update-quantity-input"
+                  data-product-id="${cartItem.productId}"/>
+                </span>
+
+                <span class="save-quantity-link link-primary js-save-btn"
+                data-product-id="${cartItem.productId}">
+                  Save
+                </span>
+
+                <span class="delete-quantity-link link-primary js-delete-btn"
+                data-product-id="${cartItem.productId}">
                   Delete
                 </span>
+
               </div>
             </div>
 
@@ -84,4 +102,38 @@ function renderDeliveryOptions(cartItem) {
 `;
     })
     .join("");
+}
+
+export function orderSummaryEvents() {
+  cartItemsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("js-update-btn")) {
+      const productId = e.target.dataset.productId;
+      const inputElem = document.querySelector(
+        `.js-update-quantity-input[data-product-id="${productId}"]`
+      );
+
+      cart.updateBtnHandler(productId);
+      inputElem.focus();
+      input.select();
+    }
+
+    if (e.target.classList.contains("js-save-btn")) {
+      const productId = e.target.dataset.productId;
+      const newQuan = +document.querySelector(
+        `.js-update-quantity-input[data-product-id="${productId}"]`
+      ).value;
+
+      cart.saveBtnHandler(productId, newQuan);
+      updateCartQunUi();
+      renderOrderSummary();
+    }
+
+    if (e.target.classList.contains("js-delete-btn")) {
+      const productId = e.target.dataset.productId;
+
+      cart.removeFromCart(productId);
+      renderOrderSummary();
+      updateCartQunUi();
+    }
+  });
 }
