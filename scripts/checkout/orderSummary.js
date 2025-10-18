@@ -128,7 +128,6 @@ export function orderSummaryEvents() {
 
       cart.updateBtnHandler(productId);
       inputElem.focus();
-      input.select();
     }
 
     if (e.target.classList.contains("js-save-btn")) {

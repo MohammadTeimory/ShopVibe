@@ -3,7 +3,10 @@ import {
   renderOrderSummary,
   orderSummaryEvents,
 } from "./checkout/orderSummary.js";
-import { renderPaymentSummary } from "./checkout/paymentSummary.js";
+import {
+  paymentSummaryEvents,
+  renderPaymentSummary,
+} from "./checkout/paymentSummary.js";
 import { updateCartQunUi } from "./utils/cartQuanUi.js";
 
 async function initCheckoutPage() {
@@ -12,6 +15,7 @@ async function initCheckoutPage() {
   updateCartQunUi();
   orderSummaryEvents();
   renderPaymentSummary();
+  paymentSummaryEvents();
 }
 
 initCheckoutPage();
