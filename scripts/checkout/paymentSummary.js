@@ -3,6 +3,7 @@ import { findMatchingItem } from "../utils/findMatchingItem.js";
 import { products } from "../../data/products.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
 import { formattCurrency } from "../utils/money.js";
+import { addOrder } from "../../data/orders.js";
 
 export function renderPaymentSummary() {
   let productsPrice = 0;
@@ -78,6 +79,9 @@ export function paymentSummaryEvents() {
       });
 
       const order = await response.json();
-      console.log(order);
+
+      addOrder(order);
+
+      window.location.href = "orders.html";
     });
 }
