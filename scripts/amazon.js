@@ -5,7 +5,7 @@ import { updateCartQunUi } from "./utils/cartQuanUi.js";
 loadProductsFech().then((products) => {
   renderAmazonPage(products);
   amazonEvents();
-  updateCartQunUi()
+  updateCartQunUi();
 });
 
 function renderAmazonPage(products) {
@@ -54,6 +54,8 @@ function renderAmazonPage(products) {
 
           <div class="product-spacer"></div>
 
+           ${product.extraInfo()}
+
           <div class="added-to-cart js-added-to-cart"
           data-product-id="${product.id}">
             <img src="images/icons/checkmark.png" />
@@ -85,7 +87,7 @@ function amazonEvents() {
 
       cart.addToCart(productId, quantity);
       cart.showAddedMessage(message);
-      updateCartQunUi()
+      updateCartQunUi();
     });
   });
 }

@@ -5,6 +5,7 @@ import { deliveryOptions } from "../../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import { formattCurrency } from "../utils/money.js";
 import { updateCartQunUi } from "../utils/cartQuanUi.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 const cartItemsContainer = document.querySelector(".js-order-summary");
 export function renderOrderSummary() {
@@ -139,6 +140,7 @@ export function orderSummaryEvents() {
       cart.saveBtnHandler(productId, newQuan);
       updateCartQunUi();
       renderOrderSummary();
+      renderPaymentSummary();
     }
 
     if (e.target.classList.contains("js-delete-btn")) {
@@ -147,6 +149,7 @@ export function orderSummaryEvents() {
       cart.removeFromCart(productId);
       renderOrderSummary();
       updateCartQunUi();
+      renderPaymentSummary();
     }
 
     if (e.target.classList.contains("js-delivery-option-input")) {
@@ -155,6 +158,7 @@ export function orderSummaryEvents() {
 
       cart.updateDeliveryOption(productId, deliveryId);
       renderOrderSummary();
+      renderPaymentSummary();
     }
   });
 }
