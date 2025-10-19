@@ -6,6 +6,7 @@ import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 import { formattCurrency } from "../utils/money.js";
 import { updateCartQunUi } from "../utils/cartQuanUi.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { getDeliveryOption } from "../../data/deliveryOptions.js";
 
 const cartItemsContainer = document.querySelector(".js-order-summary");
 export function renderOrderSummary() {
@@ -13,14 +14,12 @@ export function renderOrderSummary() {
     .map((cartItem) => {
       const matchingItem = findMatchingItem(products, cartItem.productId, "id");
 
-      const matchingDeliveryOption = findMatchingItem(
-        deliveryOptions,
-        cartItem.deliveryId,
-        "deliveryId"
-      );
+      const deliveryOptionId = cartItem.deliveryOptionId;
+      const deliveryOption = getDeliveryOption(deliveryOptionId);
+
       const today = dayjs();
       const deliveryDate = today
-        .add(matchingDeliveryOption.deliveryDays, "day")
+        .add(deliveryOption.deliveryDays, "days")
         .format("dddd , MMMM D");
 
       return `
@@ -96,7 +95,7 @@ function renderDeliveryOptions(cartItem) {
           ? "FREE "
           : `$${formattCurrency(option.priceCents)}`;
 
-      const isChecked = option.deliveryId === cartItem.deliveryId;
+      const isChecked = option.id === cartItem.deliveryOptionId;
 
       return `
      <div class="delivery-option">
@@ -106,7 +105,7 @@ function renderDeliveryOptions(cartItem) {
           class="delivery-option-input js-delivery-option-input"
           name="delivery-option-${cartItem.productId}"
           data-product-id="${cartItem.productId}"
-          data-delivery-id="${option.deliveryId}"
+          data-delivery-id="${option.id}"
         />
         <div>
           <div class="delivery-option-date">${deliveryDate}</div>

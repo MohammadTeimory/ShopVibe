@@ -7,12 +7,12 @@ class Cart {
       {
         productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
         quantity: 2,
-        deliveryId: "1",
+        deliveryOptionId: "1",
       },
       {
         productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
         quantity: 1,
-        deliveryId: "2",
+        deliveryOptionId: "2",
       },
     ];
   }
@@ -33,7 +33,7 @@ class Cart {
       : this.cart.push({
           productId: productId,
           quantity: quantity,
-          deliveryId: "1",
+          deliveryOptionId: "1",
         });
     this.saveToLocal();
   }
@@ -80,14 +80,13 @@ class Cart {
     this.saveToLocal();
   }
 
-  updateDeliveryOption(productId, deliveryId) {
+  updateDeliveryOption(productId, deliveryOptionId) {
     const matchingItem = findMatchingItem(this.cart, productId, "productId");
 
     if (matchingItem) {
-      matchingItem.deliveryId = deliveryId;
+      matchingItem.deliveryOptionId = deliveryOptionId;
     }
     this.saveToLocal();
-
   }
 }
 

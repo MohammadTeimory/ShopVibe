@@ -1,60 +1,59 @@
 import { cart } from "../../data/cart.js";
 import { findMatchingItem } from "../utils/findMatchingItem.js";
 import { products } from "../../data/products.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import {
+  deliveryOptions,
+  getDeliveryOption,
+} from "../../data/deliveryOptions.js";
 import { formattCurrency } from "../utils/money.js";
 import { addOrder } from "../../data/orders.js";
 
 export function renderPaymentSummary() {
-  let productsPrice = 0;
-  let shippingCost = 0;
+  let productPriceCents = 0;
+  let shippingPriceCents = 0;
   cart.cart.map((cartItem) => {
     const matchingItem = findMatchingItem(products, cartItem.productId, "id");
-    const matchingdeliveryOption = findMatchingItem(
-      deliveryOptions,
-      cartItem.deliveryId,
-      "deliveryId"
-    );
 
-    productsPrice += cartItem.quantity * matchingItem.priceCents;
-    shippingCost += matchingdeliveryOption.priceCents;
+    const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
+    productPriceCents += cartItem.quantity * matchingItem.priceCents;
+    shippingPriceCents += deliveryOption.priceCents;
   });
-  const totalBeforTax = productsPrice + shippingCost;
-  const tax = totalBeforTax * 0.1;
-  const orderTotalPrice = totalBeforTax + tax;
+  const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
+  const taxCents = totalBeforeTaxCents * 0.1;
+  const totalCents = totalBeforeTaxCents + taxCents;
 
   document.querySelector(".js-payment-summary").innerHTML = `
   <div class="payment-summary-title">Order Summary</div>
     <div class="payment-summary-row">
     <div>Items (${cart.getTotalQuantity()}):</div>
         <div class="payment-summary-money">
-            ${formattCurrency(productsPrice)}
+            ${formattCurrency(productPriceCents)}
         </div>
     </div>
 
     <div class="payment-summary-row">
         <div>Shipping &amp; handling:</div>
         <div class="payment-summary-money">$${formattCurrency(
-          shippingCost
+          shippingPriceCents
         )}</div>
     </div>
 
     <div class="payment-summary-row subtotal-row">
         <div>Total before tax:</div>
         <div class="payment-summary-money">$${formattCurrency(
-          totalBeforTax
+          totalBeforeTaxCents
         )}</div>
     </div>
 
     <div class="payment-summary-row">
         <div>Estimated tax (10%):</div>
-        <div class="payment-summary-money">$${formattCurrency(tax)}</div>
+        <div class="payment-summary-money">$${formattCurrency(taxCents)}</div>
     </div>
 
     <div class="payment-summary-row total-row">
         <div>Order total:</div>
         <div class="payment-summary-money">
-        $${formattCurrency(orderTotalPrice)}
+        $${formattCurrency(totalCents)}
         </div>
     </div>
 
@@ -65,9 +64,8 @@ export function renderPaymentSummary() {
 }
 
 export function paymentSummaryEvents() {
-  document
-    .querySelector(".js-place-order-button")
-    .addEventListener("click", async () => {
+  document.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("js-place-order-button")) {
       const response = await fetch("https://supersimplebackend.dev/orders", {
         method: "POST",
         headers: {
@@ -83,5 +81,6 @@ export function paymentSummaryEvents() {
       addOrder(order);
 
       window.location.href = "orders.html";
-    });
+    }
+  });
 }
