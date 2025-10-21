@@ -6,12 +6,14 @@ class Products {
   name;
   rating;
   priceCents;
+  keywords;
 
   constructor(productsDetails) {
     this.id = productsDetails.id;
     this.name = productsDetails.name;
     this.image = productsDetails.image;
     this.rating = productsDetails.rating;
+    this.keywords = productsDetails.keywords;
     this.priceCents = productsDetails.priceCents;
   }
 

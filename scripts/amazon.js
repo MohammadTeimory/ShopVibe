@@ -9,7 +9,32 @@ loadProductsFech().then((products) => {
 });
 
 function renderAmazonPage(products) {
-  document.querySelector(".js-products-grid").innerHTML = products
+  const productsGridHTML = document.querySelector(".js-products-grid");
+
+  const url = new URL(window.location.href);
+
+  const search = url.searchParams.get("search");
+
+  let filteredProducts = products;
+
+  if (search) {
+    filteredProducts = products.filter((product) => {
+      let matchingKeywords = false;
+
+      product.keywords.forEach((keyword) => {
+        if (keyword.toLowerCase().includes(search.toLowerCase())) {
+          matchingKeywords = true;
+        }
+      });
+
+      return (
+        matchingKeywords ||
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+    });
+  }
+
+  productsGridHTML.innerHTML = filteredProducts
     .map((product) => {
       return `
         <article class="product-container">
@@ -89,5 +114,11 @@ function amazonEvents() {
       cart.showAddedMessage(message);
       updateCartQunUi();
     });
+  });
+
+  document.querySelector(".js-search-button").addEventListener("click", (e) => {
+    const search = document.querySelector(".js-search-bar").value;
+
+    window.location.href = `amazon.html?search=${search}`;
   });
 }
