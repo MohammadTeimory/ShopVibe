@@ -7,7 +7,6 @@ async function loadTrakingPage() {
   await loadProductsFech();
   updateCartQunUi();
   function renderTraking() {
-    
     const url = new URL(window.location.href);
     const orderId = url.searchParams.get("orderId");
     const productId = url.searchParams.get("productId");
@@ -27,6 +26,12 @@ async function loadTrakingPage() {
     const dateString = dayjs(product.estimatedDeliveryTime).format(
       "MMMM dddd D"
     );
+
+    const today = dayjs();
+    const orderTime = dayjs(order.orderTime);
+    const deliverTime = dayjs(product.estimatedDeliveryTime);
+    const percentProgress =
+      ((today - orderTime) / (deliverTime - orderTime)) * 100;
 
     document.querySelector(".js-traking-detais").innerHTML = `
     <div class="order-tracking">
@@ -48,13 +53,26 @@ async function loadTrakingPage() {
         />
 
         <div class="progress-labels-container">
-          <div class="progress-label">Preparing</div>
-          <div class="progress-label current-status">Shipped</div>
-          <div class="progress-label">Delivered</div>
+          <div
+            class="progress-label ${
+              percentProgress < 25 ? "current-status" : ""
+            } ">
+            Preparing
+           </div>
+          <div class="progress-label ${
+            percentProgress >= 50 && percentProgress < 100
+              ? "current-status"
+              : ""
+          }">Shipped</div>
+          <div class="progress-label ${
+            percentProgress >= 100 ? "current-status" : ""
+          }">Delivered</div>
         </div>
 
         <div class="progress-bar-container">
-          <div class="progress-bar"></div>
+          <div class="progress-bar" style="width: ${
+            percentProgress <= 25 ? 25 : percentProgress
+          }%"></div>
         </div>
       </div>
     `;
