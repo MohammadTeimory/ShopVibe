@@ -23,7 +23,7 @@
 }
 
 .checkout-header-left-section {
-  width: 150px;
+  width: 100px;
 }
 
 .shopvibe-logo {
@@ -46,7 +46,8 @@
 
   .shopvibe-mobile-logo {
     display: inline-block;
-    width: 150px;
+    width: 85px;
+    
     margin-top: 5px;
   }
 }
