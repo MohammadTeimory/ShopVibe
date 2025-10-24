@@ -58,7 +58,7 @@
 در حال حاضر پروژه به صورت لوکال اجرا می‌شود.  
 می‌توانید آن را با **Live Server** در VSCode باز کنید تا تجربهٔ فروشگاه را به‌صورت کامل ببینید.
 
-[مشاهده سایت](https://mohammadteimory.github.io/VanillaShop/)
+[مشاهده سایت](https://mohammadteimory.github.io/ShopVibe/)
 
 </div>
 
@@ -113,7 +113,7 @@ Front-End Developer | Focused on mastering Vanilla JS and building real-world pr
 ### 🔍 Demo
 The project is currently running locally.
 You can open it with Live Server in VS Code to experience the full store functionality.
-[Click here to view the project](https://mohammadteimory.github.io/VanillaShop/)
+[Click here to view the project](https://mohammadteimory.github.io/ShopVibe/)
 
 ---
 ### 🏆 Project Goals
