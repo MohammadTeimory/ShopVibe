@@ -26,12 +26,12 @@
   width: 150px;
 }
 
-.amazon-logo {
-  width: 100px;
+.shopvibe-logo {
+  width: 200px;
   margin-top: 12px;
 }
 
-.amazon-mobile-logo {
+.shopvibe-mobile-logo {
   display: none;
 }
 
@@ -40,13 +40,13 @@
     width: auto;
   }
 
-  .amazon-logo {
+  .shopvibe-logo {
     display: none;
   }
 
-  .amazon-mobile-logo {
+  .shopvibe-mobile-logo {
     display: inline-block;
-    height: 35px;
+    width: 150px;
     margin-top: 5px;
   }
 }

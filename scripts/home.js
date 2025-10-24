@@ -3,12 +3,12 @@ import { cart } from "../data/cart.js";
 import { updateCartQunUi } from "./utils/cartQuanUi.js";
 
 loadProductsFech().then((products) => {
-  renderAmazonPage(products);
-  amazonEvents();
+  renderHomePage(products);
+  homeEvents();
   updateCartQunUi();
 });
 
-function renderAmazonPage(products) {
+function renderHomePage(products) {
   const productsGridHTML = document.querySelector(".js-products-grid");
 
   const url = new URL(window.location.href);
@@ -96,7 +96,7 @@ function renderAmazonPage(products) {
     .join("");
 }
 
-function amazonEvents() {
+function homeEvents() {
   document.querySelectorAll(".js-add-to-cart-button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const productId = e.target.dataset.productId;
