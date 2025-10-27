@@ -116,9 +116,22 @@ function homeEvents() {
     });
   });
 
+  const searchBar = document.querySelector(".js-search-bar");
   document.querySelector(".js-search-button").addEventListener("click", (e) => {
-    const search = document.querySelector(".js-search-bar").value;
+    const search = searchBar.value;
 
     window.location.href = `index.html?search=${search}`;
   });
+
+  searchBar.addEventListener("click", () => {
+    document.querySelector(".home-header-left-section").classList.add("hidden");
+    searchBar.classList.add("expand-search-bar");
+  });
+  
+  searchBar.addEventListener("blur", () => {
+  document
+    .querySelector(".home-header-left-section")
+    .classList.remove("hidden");
+  searchBar.classList.remove("expand-search-bar");
+});
 }

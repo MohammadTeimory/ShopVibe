@@ -1,13 +1,10 @@
 .home-header {
   background-color: rgb(19, 25, 33);
   color: white;
-  padding-left: 15px;
-  padding-right: 15px;
-
+  padding: 6px 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -17,12 +14,6 @@
 
 .home-header-left-section {
   width: 180px;
-}
-
-@media (max-width: 800px) {
-  .home-header-left-section {
-    width: unset;
-  }
 }
 
 .header-link {
@@ -39,7 +30,7 @@
 }
 
 .shopvibe-logo {
-  width: 110px;
+  width: 100%;
   margin-top: 5px;
 }
 
@@ -47,9 +38,24 @@
   display: none;
 }
 
-@media (max-width: 575px) {
+
+@media (max-width: 598px) {
+  .expand-search-bar {
+    flex-grow: 2;
+  }
+
+  .hidden {
+    display: none;
+  }
+}
+
+@media (max-width: 598px) {
   .shopvibe-logo {
     display: none;
+  }
+
+  .home-header-left-section {
+    flex: 0.5;
   }
 
   .shopvibe-mobile-logo {
@@ -57,7 +63,18 @@
     width: 100%;
     margin-top: 5px;
   }
+}
 
+@media (min-width: 480px) and (max-width: 598px) {
+  .home-header-left-section {
+    flex: 0.3;
+  }
+
+  .shopvibe-mobile-logo {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+  }
 }
 
 .home-header-middle-section {
@@ -79,6 +96,11 @@
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.search-bar:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .search-button {
@@ -144,7 +166,7 @@
   position: absolute;
   top: 4px;
   left: 22px;
-  
+
   width: 26px;
   text-align: center;
 }
