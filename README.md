@@ -9,7 +9,8 @@
 ## 🧠 درباره‌ی پروژه
 
 یک وب‌اپلیکیشن فروشگاه اینترنتی کامل است که با جاوااسکریپ خام و بدون هیچ فرییم ورکی توسعه داده شده 
-هدف از ساخت این پروژه، یادگیری عمیق ساختار فرانت‌اند، مدیریت داده‌ها، رندر داینامیک صفحات و درک ارتباط بین ماژول‌ها در پروژه‌های واقعی بود
+هدف از ساخت این پروژه، یادگیری عمیق ساختار فرانت‌اند، مدیریت داده‌ها، رندر داینامیک صفحات و درک ارتباط بین ماژول‌ها در پروژه‌های واقعی بود.
+سایت به‌صورت امن در GitHub Pages منتشر شد و پس از بررسی امنیتی کامل، توسط Google Search Console به‌عنوان سایت ایمن (بدون مشکلات امنیتی) تأیید شد.
 
 
 ---
@@ -70,6 +71,7 @@
 
 VanillaShop is a fully functional e-commerce web app built entirely with **Vanilla JavaScript**, without using any frameworks.  
 It replicates the core features of a real online store, including product listing, shopping cart, checkout flow, and order tracking.
+Deployed securely via GitHub Pages and verified by Google Search Console as a safe site (No security issues detected) after passing a full malware and phishing audit.
 
 ### 🚀 Key Features
 
